@@ -4,13 +4,18 @@ import Button from "react-bootstrap/Button";
 
 export default function App() {
 
-    const [starWarsData, setStarWarsData] = React.useState({results: [{
-        name:'',
-        birth_year:'',
-        height:'',
-        mass:'',
-        homeworld:''
-    }]})
+    const [starWarsData, setStarWarsData] = React.useState({
+        results: [ 
+            {
+                name:'',
+                birth_year:'',
+                height:'',
+                mass:'',
+                homeworld:'',
+                species:''
+            }
+        ]
+    })
 
     const [darkMode, setDarkMode] = React.useState(JSON.parse(localStorage.getItem('darkMode')) || false)
 
@@ -20,15 +25,28 @@ export default function App() {
         setDarkMode(prevDarkMode => !prevDarkMode)
     }
 
+    function changeToNextPage() {
+        setCurrentPage(starWarsData.next)
+    }
+
+    function changeToPreviousPage() {
+        setCurrentPage(starWarsData.previous)
+    }
+
+    function changeToFirstPage() {
+        setCurrentPage('https://swapi.dev/api/people/?page=1')
+    }
+
     React.useEffect(() => localStorage.setItem('darkMode', JSON.stringify(darkMode)), [darkMode])
 
     React.useEffect(() => darkMode ? document.body.style = 'background-color: rgb(36, 35, 37);' : document.body.style = '', [darkMode])
     
     React.useEffect(() => {
-        fetch('https://swapi.dev/api/people/')
+        fetch(currentPage ? `${currentPage}` : 'https://swapi.dev/api/people/?page=1')
             .then(res => res.json())
             .then(data => setStarWarsData(data))
-    }, [])
+    }, [currentPage])
+
 
     return (
         <div>
@@ -37,6 +55,11 @@ export default function App() {
                 starWarsData={starWarsData}
                 darkMode={darkMode}
             />
+            <div className="text-center">
+                <Button onClick={changeToFirstPage}>First Page</Button>
+                <Button onClick={changeToPreviousPage}>Previous Page</Button>
+                <Button onClick={changeToNextPage}>Next Page</Button>
+            </div>
         </div>
     )
 }

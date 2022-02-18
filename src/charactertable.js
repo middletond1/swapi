@@ -15,8 +15,6 @@ export default function CharacterTable(props) {
         )
     )
 
-    console.log(props.starWarsData)
-
     return (
         <div className='container'>
             {props.darkMode ? 
