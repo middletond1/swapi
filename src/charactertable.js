@@ -3,7 +3,9 @@ import Table from "react-bootstrap/Table"
 
 export default function CharacterTable(props) {
 
-    const tableElements = props.starWarsData.results.map((item, i) => (
+    const tableElements = props.starWarsData.results.map(function(item, i) {
+
+        return (
         <tr key={i}>
             <td>{item.name}</td>
             <td>{item.birth_year}</td>
@@ -12,7 +14,7 @@ export default function CharacterTable(props) {
             <td>{item.homeworld}</td>
             <td>{item.species}</td>
         </tr>
-        )
+        )} 
     )
 
     return (

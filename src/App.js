@@ -47,6 +47,7 @@ export default function App() {
             .then(data => setStarWarsData(data))
     }, [currentPage])
 
+    console.log(starWarsData)
 
     return (
         <div>
