@@ -3,8 +3,8 @@ import Table from "react-bootstrap/Table"
 
 export default function CharacterTable(props) {
 
-    const tableElements = props.starWarsData.results.map(function(item, i) {
-
+    const tableElements = props.characterArray.map((item, i) => {
+        
         return (
         <tr key={i}>
             <td>{item.name}</td>
