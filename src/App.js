@@ -34,7 +34,7 @@ export default function App() {
     }
 
     function changeToFirstPage() {
-        setCurrentPage('https://swapi.dev/api/people/?page=1')
+        setCurrentPage('https://swapi.py4e.com/api/people/?page=1')
     }
 
     React.useEffect(() => localStorage.setItem('darkMode', JSON.stringify(darkMode)), [darkMode])
@@ -42,7 +42,7 @@ export default function App() {
     React.useEffect(() => darkMode ? document.body.style = 'background-color: rgb(36, 35, 37);' : document.body.style = '', [darkMode])
     
     React.useEffect(() => {
-        fetch(currentPage ? `${currentPage}` : 'https://swapi.dev/api/people/?page=1')
+        fetch(currentPage ? `${currentPage}` : 'https://swapi.py4e.com/api/people/?page=1')
             .then(res => res.json())
             .then(data => setStarWarsData(data))
     }, [currentPage])
