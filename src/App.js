@@ -4,13 +4,22 @@ import Button from "react-bootstrap/Button";
 
 export default function App() {
 
-    const [starWarsData, setStarWarsData] = React.useState([])
+    const [starWarsData, setStarWarsData] = React.useState(null)
 
     const [characterArray, setCharacterArray] = React.useState([])
 
     const [darkMode, setDarkMode] = React.useState(JSON.parse(localStorage.getItem('darkMode')) || false)
 
     const [currentPage, setCurrentPage] = React.useState('')
+
+    React.useEffect(() => localStorage.setItem('darkMode', JSON.stringify(darkMode)), [darkMode])
+
+    React.useEffect(() => darkMode ? document.body.style = 'background-color: rgb(36, 35, 37);' : document.body.style = '', [darkMode])
+    
+    React.useEffect(() => {
+        console.log('useEffect ran!')
+        fetchCharacters();
+    }, [currentPage])
 
     function changeToDarkMode() {
         setDarkMode(prevDarkMode => !prevDarkMode)
@@ -53,20 +62,15 @@ export default function App() {
         }      
     }
 
-    async function fetchCharacters() {
-        const res = await fetch(currentPage ? `${currentPage}` : 'https://swapi.dev/api/people/?page=1');
-        const data = await res.json();
-        setStarWarsData(data);
-        createCharacterArray(data.results);
+    function fetchCharacters() {
+        fetch(currentPage ? `${currentPage}` : 'https://swapi.dev/api/people/?page=1').then(res => {
+            return res.json();
+        }).then(data => {
+            console.log(data)
+            setStarWarsData(data);
+            createCharacterArray(data.results);
+        });   
     }
-
-    React.useEffect(() => localStorage.setItem('darkMode', JSON.stringify(darkMode)), [darkMode])
-
-    React.useEffect(() => darkMode ? document.body.style = 'background-color: rgb(36, 35, 37);' : document.body.style = '', [darkMode])
-    
-    React.useEffect(() => {
-        fetchCharacters();
-    }, [currentPage])
 
     // console.log(starWarsData)
 
