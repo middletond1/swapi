@@ -25,7 +25,7 @@ export default function App() {
     }
 
     function changeToFirstPage() {
-        setCurrentPage('https://swapi.py4e.com/api/people/?page=1')
+        setCurrentPage('https://swapi.dev/api/people/?page=1')
     }
 
     async function createCharacterArray(charactersArray) {
@@ -54,7 +54,7 @@ export default function App() {
     }
 
     async function fetchCharacters() {
-        const res = await fetch(currentPage ? `${currentPage}` : 'https://swapi.py4e.com/api/people/?page=1');
+        const res = await fetch(currentPage ? `${currentPage}` : 'https://swapi.dev/api/people/?page=1');
         const data = await res.json();
         setStarWarsData(data);
         createCharacterArray(data.results);
@@ -68,13 +68,14 @@ export default function App() {
         fetchCharacters();
     }, [currentPage])
 
-    console.log(characterArray)
+    // console.log(starWarsData)
 
     return (
         <div>
             <Button onClick={changeToDarkMode}>Dark Mode</Button>
             <CharacterTable 
                 characterArray={characterArray}
+                starWarsData={starWarsData}
                 darkMode={darkMode}
             />
             <div className="text-center">
