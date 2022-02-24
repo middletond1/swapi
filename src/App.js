@@ -6,8 +6,6 @@ export default function App() {
 
     const [starWarsData, setStarWarsData] = React.useState(null)
 
-    const [characterArray, setCharacterArray] = React.useState([])
-
     const [darkMode, setDarkMode] = React.useState(JSON.parse(localStorage.getItem('darkMode')) || false)
 
     const [currentPage, setCurrentPage] = React.useState('')
@@ -37,12 +35,12 @@ export default function App() {
         setCurrentPage('https://swapi.dev/api/people/?page=1')
     }
 
-    async function createCharacterArray(charactersArray) {
-        for (const character of charactersArray) {
+    async function updateStarWarsData(data) {
+        for (const character of data.results) {
             await getHomeworld(character);
             await getSpecies(character);
         };
-        setCharacterArray(charactersArray);
+        setStarWarsData(data);
     }
 
     async function getHomeworld(character) {
@@ -53,7 +51,7 @@ export default function App() {
 
     async function getSpecies(character) {
         if (character.species.length === 0){
-            character.species = 'unknown'
+            character.species = 'Human'
             return
         } else {
             const res = await fetch(character.species[0]);
@@ -67,18 +65,14 @@ export default function App() {
             return res.json();
         }).then(data => {
             console.log(data)
-            setStarWarsData(data);
-            createCharacterArray(data.results);
+            updateStarWarsData(data);
         });   
     }
-
-    // console.log(starWarsData)
 
     return (
         <div>
             <Button onClick={changeToDarkMode}>Dark Mode</Button>
             <CharacterTable 
-                characterArray={characterArray}
                 starWarsData={starWarsData}
                 darkMode={darkMode}
             />
