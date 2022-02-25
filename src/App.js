@@ -37,6 +37,15 @@ export default function App() {
         setSearch(event.target.value)
     }
 
+    function findCharacter(event) {
+        const flattenedData = starWarsData.flat();
+        flattenedData.map((item) => {
+            if (event.target.value === item.name) {
+                
+            }
+        })
+    }
+
     function changeToDarkMode() {
         setDarkMode(prevDarkMode => !prevDarkMode)
     }
