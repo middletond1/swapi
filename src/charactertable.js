@@ -3,19 +3,19 @@ import Table from "react-bootstrap/Table"
 
 export default function CharacterTable(props) {
 
-    // const tableElements = props.starWarsData === null ? [] : props.starWarsData.map((item, i) => {
-    //     return (
-    //         <tr key={i}>
-    //             <td>{item.name}</td>
-    //             <td>{item.birth_year}</td>
-    //             <td>{item.height}</td>
-    //             <td>{item.mass}</td>
-    //             <td>{item.homeworld}</td>
-    //             <td>{item.species}</td>
-    //         </tr>
-    //         )
-    //     } 
-    // )
+    const tableElements = props.displayPage === null ? [] : props.displayPage.map((item, i) => {
+        return (
+            <tr key={i}>
+                <td>{item.name}</td>
+                <td>{item.birth_year}</td>
+                <td>{item.height}</td>
+                <td>{item.mass}</td>
+                <td>{item.homeworld}</td>
+                <td>{item.species}</td>
+            </tr>
+            )
+        } 
+    )
 
     return (
         <div className='container'>
@@ -32,7 +32,7 @@ export default function CharacterTable(props) {
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {tableElements} */}
+                        {tableElements}
                     </tbody>
                 </Table>
             : 
@@ -48,7 +48,7 @@ export default function CharacterTable(props) {
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {tableElements} */}
+                        {tableElements}
                     </tbody>
                 </Table>}
         </div>

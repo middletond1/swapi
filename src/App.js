@@ -1,6 +1,7 @@
 import React from "react";
 import CharacterTable from "./charactertable"
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 export default function App() {
 
@@ -8,7 +9,11 @@ export default function App() {
 
     const [darkMode, setDarkMode] = React.useState(JSON.parse(localStorage.getItem('darkMode')) || false)
 
-    const [currentPage, setCurrentPage] = React.useState('')
+    const [currentPage, setCurrentPage] = React.useState(0)
+
+    const [displayPage, setDisplayPage] = React.useState(null)
+
+    const [search, setSearch] = React.useState('')
 
     React.useEffect(() => localStorage.setItem('darkMode', JSON.stringify(darkMode)), [darkMode])
 
@@ -16,33 +21,44 @@ export default function App() {
     
     React.useEffect(() => {
         console.log('useEffect ran!')
-        // fetchCharacters();
         fetchFullCharacterList()
     }, [])
+
+    React.useEffect(() => {
+        if (starWarsData === null) {
+            return
+        } else if (currentPage === 9) {
+            return
+        }
+        setDisplayPage(starWarsData[currentPage])
+    }, [currentPage])
+
+    function handleSearchChange(event) {
+        setSearch(event.target.value)
+    }
 
     function changeToDarkMode() {
         setDarkMode(prevDarkMode => !prevDarkMode)
     }
 
+    function displayCurrentPage() {
+        setDisplayPage(starWarsData[currentPage])
+    }
+
     function changeToNextPage() {
-        setCurrentPage(starWarsData.next)
+        if (currentPage === 8){
+            return
+        }
+        setCurrentPage(currentPage + 1) 
+        console.log(currentPage)
     }
 
     function changeToPreviousPage() {
-        setCurrentPage(starWarsData.previous)
+        if (currentPage === 0) {
+            return
+        }
+        setCurrentPage(currentPage - 1)
     }
-
-    function changeToFirstPage() {
-        setCurrentPage('https://swapi.dev/api/people/?page=1')
-    }
-
-    // async function updateStarWarsData(data) {
-    //     for (const character of data.results) {
-    //         await getHomeworld(character);
-    //         await getSpecies(character);
-    //     };
-    //     setStarWarsData(data);
-    // }
 
     async function getHomeworld(character) {
         const res = await fetch(character.homeworld);
@@ -61,15 +77,6 @@ export default function App() {
         }      
     }
 
-    // function fetchCharacters() {
-    //     fetch(currentPage ? `${currentPage}` : 'https://swapi.dev/api/people/?page=1').then(res => {
-    //         return res.json();
-    //     }).then(data => {
-    //         console.log(data)
-    //         updateStarWarsData(data);
-    //     });   
-    // }
-
     async function fetchFullCharacterList() {
         let nextPage = 'https://swapi.dev/api/people/?page=1';
 
@@ -78,30 +85,38 @@ export default function App() {
         while (nextPage) {
             var res = await fetch(nextPage);
             var data = await res.json()
-            // for (const character of data.results) {
-            //     await getHomeworld(character);
-            //     await getSpecies(character);
-            // };
+            for (const character of data.results) {
+                getHomeworld(character);
+                getSpecies(character);
+            };
             fullCharacterList = [...fullCharacterList, data.results];
             nextPage = data.next;             
         }
-        // fullCharacterList = fullCharacterList.flat()
         setStarWarsData(fullCharacterList)
     }
 
-    console.log(starWarsData)
+    console.log(search)
 
     return (
         <div>
             <Button onClick={changeToDarkMode}>Dark Mode</Button>
+            <div className="container">
+                <Form>
+                    <Form.Group className="mb-3" controlId="formSearch">
+                        <Form.Control type="text" onChange={handleSearchChange} placeholder="Search" />
+                    </Form.Group>
+                </Form>
+            </div>
             <CharacterTable 
                 starWarsData={starWarsData}
                 darkMode={darkMode}
+                currentPage={currentPage}
+                displayPage={displayPage}
             />
             <div className="text-center">
-                <Button onClick={changeToFirstPage}>First Page</Button>
                 <Button onClick={changeToPreviousPage}>Previous Page</Button>
                 <Button onClick={changeToNextPage}>Next Page</Button>
+                <Button onClick={displayCurrentPage}>Display</Button>
             </div>
         </div>
     )
