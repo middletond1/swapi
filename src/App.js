@@ -16,8 +16,9 @@ export default function App() {
     
     React.useEffect(() => {
         console.log('useEffect ran!')
-        fetchCharacters();
-    }, [currentPage])
+        // fetchCharacters();
+        fetchFullCharacterList()
+    }, [])
 
     function changeToDarkMode() {
         setDarkMode(prevDarkMode => !prevDarkMode)
@@ -35,13 +36,13 @@ export default function App() {
         setCurrentPage('https://swapi.dev/api/people/?page=1')
     }
 
-    async function updateStarWarsData(data) {
-        for (const character of data.results) {
-            await getHomeworld(character);
-            await getSpecies(character);
-        };
-        setStarWarsData(data);
-    }
+    // async function updateStarWarsData(data) {
+    //     for (const character of data.results) {
+    //         await getHomeworld(character);
+    //         await getSpecies(character);
+    //     };
+    //     setStarWarsData(data);
+    // }
 
     async function getHomeworld(character) {
         const res = await fetch(character.homeworld);
@@ -60,14 +61,35 @@ export default function App() {
         }      
     }
 
-    function fetchCharacters() {
-        fetch(currentPage ? `${currentPage}` : 'https://swapi.dev/api/people/?page=1').then(res => {
-            return res.json();
-        }).then(data => {
-            console.log(data)
-            updateStarWarsData(data);
-        });   
+    // function fetchCharacters() {
+    //     fetch(currentPage ? `${currentPage}` : 'https://swapi.dev/api/people/?page=1').then(res => {
+    //         return res.json();
+    //     }).then(data => {
+    //         console.log(data)
+    //         updateStarWarsData(data);
+    //     });   
+    // }
+
+    async function fetchFullCharacterList() {
+        let nextPage = 'https://swapi.dev/api/people/?page=1';
+
+        let fullCharacterList = [];
+
+        while (nextPage) {
+            var res = await fetch(nextPage);
+            var data = await res.json()
+            // for (const character of data.results) {
+            //     await getHomeworld(character);
+            //     await getSpecies(character);
+            // };
+            fullCharacterList = [...fullCharacterList, data.results];
+            nextPage = data.next;             
+        }
+        // fullCharacterList = fullCharacterList.flat()
+        setStarWarsData(fullCharacterList)
     }
+
+    console.log(starWarsData)
 
     return (
         <div>
