@@ -3,6 +3,7 @@ import CharacterTable from "./charactertable"
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
+
 export default function App() {
 
     const [starWarsData, setStarWarsData] = React.useState(null)

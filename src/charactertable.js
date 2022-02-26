@@ -1,5 +1,6 @@
 import React from "react";
 import Table from "react-bootstrap/Table"
+import Spinner from "react-bootstrap/Spinner"
 
 export default function CharacterTable(props) {
 
@@ -19,38 +20,45 @@ export default function CharacterTable(props) {
 
     return (
         <div className='container'>
-            {props.darkMode ? 
-                <Table variant="dark" striped hover bordered id="expensetable">
-                    <thead className={`${props.darkMode ? 'table-light' : 'table-success'}`}>
-                        <tr>
-                            <th>Name</th>
-                            <th>Birth Date</th>
-                            <th>Height</th>
-                            <th>Mass</th>
-                            <th>Homeworld</th>
-                            <th>Species</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {tableElements}
-                    </tbody>
-                </Table>
-            : 
-                <Table striped hover bordered id="expensetable">
-                    <thead className={`${props.darkMode ? 'table-light' : 'table-success'}`}>
-                        <tr>
-                            <th>Name</th>
-                            <th>Birth Date</th>
-                            <th>Height</th>
-                            <th>Mass</th>
-                            <th>Homeworld</th>
-                            <th>Species</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {tableElements}
-                    </tbody>
-                </Table>}
+            {props.starWarsData === null ?
+                <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading</span>
+                </Spinner>
+                :
+                props.darkMode ? 
+                    <Table variant="dark" striped hover bordered id="expensetable">
+                        <thead className={`${props.darkMode ? 'table-light' : 'table-success'}`}>
+                            <tr>
+                                <th>Name</th>
+                                <th>Birth Date</th>
+                                <th>Height</th>
+                                <th>Mass</th>
+                                <th>Homeworld</th>
+                                <th>Species</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {tableElements}
+                        </tbody>
+                    </Table>
+                : 
+                    <Table striped hover bordered id="expensetable">
+                        <thead className={`${props.darkMode ? 'table-light' : 'table-success'}`}>
+                            <tr>
+                                <th>Name</th>
+                                <th>Birth Date</th>
+                                <th>Height</th>
+                                <th>Mass</th>
+                                <th>Homeworld</th>
+                                <th>Species</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {tableElements}
+                        </tbody>
+                    </Table>
+            }
+            
         </div>
     )
 }
