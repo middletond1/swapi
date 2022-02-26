@@ -56,7 +56,7 @@ export default function App() {
 
     function findCharacter() {
         const flattenedData = starWarsData.flat();
-        return flattenedData.filter(character => character.name.toLowerCase().startsWith(search.toLowerCase()))
+        return flattenedData.filter(character => character.name.toLowerCase().includes(search.toLowerCase()))
     }
 
     function changeToDarkMode() {
