@@ -47,19 +47,11 @@ export default function App() {
 
     function findCharacter(event) {
         const flattenedData = starWarsData.flat();
-        flattenedData.map((item) => {
-            if (event.target.value === item.name) {
-                
-            }
-        })
+        console.log(flattenedData)
     }
 
     function changeToDarkMode() {
         setDarkMode(prevDarkMode => !prevDarkMode)
-    }
-
-    function displayCurrentPage() {
-        setDisplayPage(starWarsData[currentPage])
     }
 
     function changeToNextPage() {
@@ -133,6 +125,7 @@ export default function App() {
             <div className="text-center">
                 <Button onClick={changeToPreviousPage}>Previous Page</Button>
                 <Button onClick={changeToNextPage}>Next Page</Button>
+                <Button onClick={findCharacter}>Next Page</Button>
             </div>
         </div>
     )
