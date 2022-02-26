@@ -21,7 +21,6 @@ export default function App() {
     React.useEffect(() => darkMode ? document.body.style = 'background-color: rgb(36, 35, 37);' : document.body.style = '', [darkMode])
     
     React.useEffect(() => {
-        console.log('useEffect ran!')
         fetchFullCharacterList()
     }, [])
 
@@ -42,8 +41,14 @@ export default function App() {
     }, [currentPage])
 
     React.useEffect(() => {
-        
-    })
+        if (starWarsData === null) {
+            return
+        } else if (search === '') {
+            setDisplayPage(starWarsData[currentPage])
+            return
+        }
+        setDisplayPage(findCharacter)
+    }, [search])
 
     function handleSearchChange(event) {
         setSearch(event.target.value)
@@ -63,7 +68,6 @@ export default function App() {
             return
         }
         setCurrentPage(currentPage + 1) 
-        console.log(currentPage)
     }
 
     function changeToPreviousPage() {
@@ -108,8 +112,6 @@ export default function App() {
         setStarWarsData(fullCharacterList)
     }
 
-    console.log(search)
-
     return (
         <div>
             <Button onClick={changeToDarkMode}>Dark Mode</Button>
@@ -129,7 +131,6 @@ export default function App() {
             <div className="text-center">
                 <Button onClick={changeToPreviousPage}>Previous Page</Button>
                 <Button onClick={changeToNextPage}>Next Page</Button>
-                <Button onClick={findCharacter}>Find Char Test</Button>
             </div>
         </div>
     )
