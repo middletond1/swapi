@@ -43,7 +43,7 @@ export default function CharacterTable(props) {
                             {tableElements}
                         </tbody>
                     </Table>
-                : 
+                    : 
                     <Table striped hover bordered id="expensetable">
                         <thead className={`${props.darkMode ? 'table-light' : 'table-success'}`}>
                             <tr>
