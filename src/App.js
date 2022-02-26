@@ -2,23 +2,19 @@ import React from "react";
 import CharacterTable from "./charactertable"
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import logo from "./StarWarsLogo.png";
+import './style.css'
 
 
 export default function App() {
 
     const [starWarsData, setStarWarsData] = React.useState(null)
 
-    const [darkMode, setDarkMode] = React.useState(JSON.parse(localStorage.getItem('darkMode')) || false)
-
     const [currentPage, setCurrentPage] = React.useState(0)
 
     const [displayPage, setDisplayPage] = React.useState(null)
 
     const [search, setSearch] = React.useState('')
-
-    React.useEffect(() => localStorage.setItem('darkMode', JSON.stringify(darkMode)), [darkMode])
-
-    React.useEffect(() => darkMode ? document.body.style = 'background-color: rgb(36, 35, 37);' : document.body.style = '', [darkMode])
     
     React.useEffect(() => {
         fetchFullCharacterList()
@@ -57,10 +53,6 @@ export default function App() {
     function findCharacter() {
         const flattenedData = starWarsData.flat();
         return flattenedData.filter(character => character.name.toLowerCase().includes(search.toLowerCase()))
-    }
-
-    function changeToDarkMode() {
-        setDarkMode(prevDarkMode => !prevDarkMode)
     }
 
     function changeToNextPage() {
@@ -114,8 +106,10 @@ export default function App() {
 
     return (
         <div>
-            <Button onClick={changeToDarkMode}>Dark Mode</Button>
             <div className="container">
+                <div className="text-center mb-5 mt-5">
+                    <img src={logo} className="logo" alt="Logo" />
+                </div>
                 <Form>
                     <Form.Group className="mb-3" controlId="formSearch">
                         <Form.Control type="text" onChange={handleSearchChange} placeholder="Search" />
@@ -124,7 +118,6 @@ export default function App() {
             </div>
             <CharacterTable 
                 starWarsData={starWarsData}
-                darkMode={darkMode}
                 currentPage={currentPage}
                 displayPage={displayPage}
             />
