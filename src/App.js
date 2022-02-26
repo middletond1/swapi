@@ -27,6 +27,13 @@ export default function App() {
     React.useEffect(() => {
         if (starWarsData === null) {
             return
+        }
+        setDisplayPage(starWarsData[0])
+    }, [starWarsData])
+
+    React.useEffect(() => {
+        if (starWarsData === null) {
+            return
         } else if (currentPage === 9) {
             return
         }
@@ -125,7 +132,6 @@ export default function App() {
             <div className="text-center">
                 <Button onClick={changeToPreviousPage}>Previous Page</Button>
                 <Button onClick={changeToNextPage}>Next Page</Button>
-                <Button onClick={displayCurrentPage}>Display</Button>
             </div>
         </div>
     )
