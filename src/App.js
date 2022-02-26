@@ -41,13 +41,17 @@ export default function App() {
         setDisplayPage(starWarsData[currentPage])
     }, [currentPage])
 
+    React.useEffect(() => {
+        
+    })
+
     function handleSearchChange(event) {
         setSearch(event.target.value)
     }
 
-    function findCharacter(event) {
+    function findCharacter() {
         const flattenedData = starWarsData.flat();
-        console.log(flattenedData)
+        return flattenedData.filter(character => character.name.toLowerCase().startsWith(search.toLowerCase()))
     }
 
     function changeToDarkMode() {
@@ -125,7 +129,7 @@ export default function App() {
             <div className="text-center">
                 <Button onClick={changeToPreviousPage}>Previous Page</Button>
                 <Button onClick={changeToNextPage}>Next Page</Button>
-                <Button onClick={findCharacter}>Next Page</Button>
+                <Button onClick={findCharacter}>Find Char Test</Button>
             </div>
         </div>
     )
