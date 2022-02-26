@@ -21,9 +21,11 @@ export default function CharacterTable(props) {
     return (
         <div className='container'>
             {props.starWarsData === null ?
-                <Spinner animation="border" role="status">
-                <span className="visually-hidden">Loading</span>
-                </Spinner>
+                <div className="text-center">
+                    <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading</span>
+                    </Spinner>
+                </div>
                 :
                 props.darkMode ? 
                     <Table variant="dark" striped hover bordered id="expensetable">
