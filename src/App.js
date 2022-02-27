@@ -70,6 +70,8 @@ export default function App() {
         setCurrentPage(currentPage - 1)
     }
 
+    // Unsure why data variable needs to be destructured when using axios.get instead of .fetch
+
     async function getHomeworld(character) {
         const {data} = await axios.get(character.homeworld);
         character.homeworld = data.name;
