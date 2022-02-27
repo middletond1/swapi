@@ -1,11 +1,14 @@
 import React from "react";
 import axios from 'axios';
 import CharacterTable from "./charactertable"
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import logo from "./StarWarsLogo.png";
 import './style.css'
-
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 export default function App() {
 
@@ -106,7 +109,7 @@ export default function App() {
 
     return (
         <div>
-            <div className="container">
+            <Container>
                 <div className="text-center mb-5 mt-5">
                     <img src={logo} className="logo" alt="Logo" />
                 </div>
@@ -115,16 +118,22 @@ export default function App() {
                         <Form.Control type="text" onChange={handleSearchChange} placeholder="Search" />
                     </Form.Group>
                 </Form>
-            </div>
+            </Container>
             <CharacterTable 
                 starWarsData={starWarsData}
                 currentPage={currentPage}
                 displayPage={displayPage}
             />
-            <div className="text-center">
-                <Button onClick={changeToPreviousPage}>Prev Page</Button>
-                <Button onClick={changeToNextPage}>Next Page</Button>
-            </div>
+            <Container>
+                <Row className="justify-content-md-center">
+                    <Col xs lg="2">
+                        <Button onClick={changeToPreviousPage}>Prev Page</Button>
+                    </Col>
+                    <Col xs lg="2">
+                        <Button onClick={changeToNextPage}>Next Page</Button>
+                    </Col>
+                </Row>
+            </Container>           
         </div>
     )
 }
