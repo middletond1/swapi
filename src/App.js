@@ -1,4 +1,5 @@
 import React from "react";
+import axios from 'axios';
 import CharacterTable from "./charactertable"
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -70,8 +71,7 @@ export default function App() {
     }
 
     async function getHomeworld(character) {
-        const res = await fetch(character.homeworld);
-        const data = await res.json();
+        const {data} = await axios.get(character.homeworld);
         character.homeworld = data.name;
     }
 
@@ -80,8 +80,7 @@ export default function App() {
             character.species = 'Human'
             return
         } else {
-            const res = await fetch(character.species[0]);
-            const data = await res.json();
+            const {data} = await axios.get(character.species[0]);
             character.species = data.name;
         }      
     }
@@ -92,8 +91,7 @@ export default function App() {
         let fullCharacterList = [];
 
         while (nextPage) {
-            var res = await fetch(nextPage);
-            var data = await res.json()
+            var {data} = await axios.get(nextPage);
             for (const character of data.results) {
                 getHomeworld(character);
                 getSpecies(character);
