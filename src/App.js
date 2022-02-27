@@ -122,7 +122,7 @@ export default function App() {
                 displayPage={displayPage}
             />
             <div className="text-center">
-                <Button onClick={changeToPreviousPage}>Previous Page</Button>
+                <Button onClick={changeToPreviousPage}>Prev Page</Button>
                 <Button onClick={changeToNextPage}>Next Page</Button>
             </div>
         </div>
