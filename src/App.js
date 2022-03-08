@@ -59,19 +59,7 @@ export default function App() {
         return flattenedData.filter(character => character.name.toLowerCase().includes(search.toLowerCase()))
     }
 
-    function changeToNextPage() {
-        if (currentPage === 8){
-            return
-        }
-        setCurrentPage(currentPage + 1) 
-    }
 
-    function changeToPreviousPage() {
-        if (currentPage === 0) {
-            return
-        }
-        setCurrentPage(currentPage - 1)
-    }
 
     // Unsure why data variable needs to be destructured when using axios.get instead of .fetch
 
@@ -127,10 +115,10 @@ export default function App() {
             <Container>
                 <Row className="justify-content-md-center">
                     <Col xs lg="2">
-                        <Button onClick={changeToPreviousPage}>Prev Page</Button>
+                        <Button onClick={() => setCurrentPage(currentPage === 0 ? 0 : currentPage - 1)}>Prev Page</Button>
                     </Col>
                     <Col xs lg="2">
-                        <Button onClick={changeToNextPage}>Next Page</Button>
+                        <Button onClick={() => setCurrentPage(currentPage === 8 ? 8 : currentPage + 1)}>Next Page</Button>
                     </Col>
                 </Row>
             </Container>           
