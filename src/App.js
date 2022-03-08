@@ -1,14 +1,16 @@
 import React from "react";
 import axios from 'axios';
-import CharacterTable from "./charactertable"
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import logo from "./StarWarsLogo.png";
-import './style.css'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+
+import './style.css'
+import logo from "./StarWarsLogo.png";
+import CharacterTable from "./charactertable"
 
 export default function App() {
 
