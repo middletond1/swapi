@@ -71,7 +71,6 @@ export default function App() {
     async function getSpecies(character) {
         if (character.species.length === 0){
             character.species = 'Human'
-            return
         } else {
             const {data} = await axios.get(character.species[0]);
             character.species = data.name;
