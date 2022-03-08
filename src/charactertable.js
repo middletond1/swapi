@@ -4,7 +4,7 @@ import Spinner from "react-bootstrap/Spinner"
 
 export default function CharacterTable(props) {
 
-    const tableElements = props.displayPage === null ? [] : props.displayPage.map((item, i) => {
+    const tableElements = props.displayPage && props.displayPage.map((item, i) => {
         return (
             <tr key={i}>
                 <td>{item.name}</td>

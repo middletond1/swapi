@@ -18,7 +18,7 @@ export default function App() {
 
     const [currentPage, setCurrentPage] = React.useState(0)
 
-    const [displayPage, setDisplayPage] = React.useState(null)
+    const [displayPage, setDisplayPage] = React.useState([])
 
     const [search, setSearch] = React.useState('')
     
@@ -60,10 +60,6 @@ export default function App() {
         const flattenedData = starWarsData.flat();
         return flattenedData.filter(character => character.name.toLowerCase().includes(search.toLowerCase()))
     }
-
-
-
-    // Unsure why data variable needs to be destructured when using axios.get instead of .fetch
 
     async function getHomeworld(character) {
         const {data} = await axios.get(character.homeworld);
