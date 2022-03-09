@@ -2,7 +2,7 @@ import React from "react";
 import Table from "react-bootstrap/Table"
 import Spinner from "react-bootstrap/Spinner"
 
-export default function CharacterTable(props) {
+export default function CharacterTable({displayPage}) {
 
     return (
         <div className='container'>
@@ -18,7 +18,7 @@ export default function CharacterTable(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.displayPage && props.displayPage.map((item, i) => {
+                    {displayPage && displayPage.map((item, i) => {
                         return (
                             <tr key={i}>
                                 <td>{item.name}</td>

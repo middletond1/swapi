@@ -107,7 +107,7 @@ export default function App() {
             </Container>
             <Container>
                 {starWarsData === null ? 
-                    <SpinnerComp></SpinnerComp>
+                    <SpinnerComp />
                     :
                     <CharacterTable 
                         starWarsData={starWarsData}
