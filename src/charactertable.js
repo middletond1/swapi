@@ -18,7 +18,7 @@ export default function CharacterTable({displayPage}) {
                     </tr>
                 </thead>
                 <tbody>
-                    {displayPage && displayPage.map((item, i) => {
+                    {displayPage.map((item, i) => {
                         return (
                             <tr key={i}>
                                 <td>{item.name}</td>
