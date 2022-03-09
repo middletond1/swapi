@@ -11,6 +11,7 @@ import Col from 'react-bootstrap/Col'
 import './style.css'
 import logo from "./StarWarsLogo.png";
 import CharacterTable from "./charactertable"
+import SpinnerComp from "./spinner.js"
 
 export default function App() {
 
@@ -104,11 +105,17 @@ export default function App() {
                     </Form.Group>
                 </Form>
             </Container>
-            <CharacterTable 
-                starWarsData={starWarsData}
-                currentPage={currentPage}
-                displayPage={displayPage}
-            />
+            <Container>
+                {starWarsData === null ? 
+                    <SpinnerComp></SpinnerComp>
+                    :
+                    <CharacterTable 
+                        starWarsData={starWarsData}
+                        currentPage={currentPage}
+                        displayPage={displayPage}
+                    />
+                 }
+            </Container>
             <Container>
                 <Row className="justify-content-md-center">
                     <Col xs lg="2">
