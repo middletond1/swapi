@@ -13,18 +13,44 @@ import logo from "./StarWarsLogo.png";
 import CharacterTable from "./charactertable"
 import SpinnerComp from "./spinner.js"
 
+async function fetchFullCharacterList(setStarWarsData) {
+    let nextPage = 'https://swapi.dev/api/people/?page=1';
+    let fullCharacterList = [];
+    while (nextPage) {
+        var {data} = await axios.get(nextPage);
+        for (const character of data.results) {
+            getHomeworld(character);
+            getSpecies(character);
+        };
+        fullCharacterList = [...fullCharacterList, data.results];
+        nextPage = data.next;             
+    }
+    setStarWarsData(fullCharacterList)
+}
+
+async function getHomeworld(character) {
+    const {data} = await axios.get(character.homeworld);
+    character.homeworld = data.name;
+}
+
+async function getSpecies(character) {
+    if (character.species.length === 0){
+        character.species = 'Human'
+    } else {
+        const {data} = await axios.get(character.species[0]);
+        character.species = data.name;
+    }      
+}
+
 export default function App() {
 
     const [starWarsData, setStarWarsData] = React.useState(null)
-
     const [currentPage, setCurrentPage] = React.useState(0)
-
     const [displayPage, setDisplayPage] = React.useState([])
-
     const [search, setSearch] = React.useState('')
     
     React.useEffect(() => {
-        fetchFullCharacterList()
+        fetchFullCharacterList(setStarWarsData)
     }, [])
 
     React.useEffect(() => {
@@ -60,37 +86,6 @@ export default function App() {
     function findCharacter() {
         const flattenedData = starWarsData.flat();
         return flattenedData.filter(character => character.name.toLowerCase().includes(search.toLowerCase()))
-    }
-
-    async function getHomeworld(character) {
-        const {data} = await axios.get(character.homeworld);
-        character.homeworld = data.name;
-    }
-
-    async function getSpecies(character) {
-        if (character.species.length === 0){
-            character.species = 'Human'
-        } else {
-            const {data} = await axios.get(character.species[0]);
-            character.species = data.name;
-        }      
-    }
-
-    async function fetchFullCharacterList() {
-        let nextPage = 'https://swapi.dev/api/people/?page=1';
-
-        let fullCharacterList = [];
-
-        while (nextPage) {
-            var {data} = await axios.get(nextPage);
-            for (const character of data.results) {
-                getHomeworld(character);
-                getSpecies(character);
-            };
-            fullCharacterList = [...fullCharacterList, data.results];
-            nextPage = data.next;             
-        }
-        setStarWarsData(fullCharacterList)
     }
 
     return (
