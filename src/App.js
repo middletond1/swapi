@@ -79,14 +79,16 @@ export default function App() {
         setDisplayPage(findCharacter)
     }, [search])
 
-    function handleSearchChange(event) {
-        setSearch(event.target.value)
-    }
+    // function handleSearchChange(event) {
+    //     setSearch(event.target.value)
+    // }
 
     function findCharacter() {
         const flattenedData = starWarsData.flat();
         return flattenedData.filter(character => character.name.toLowerCase().includes(search.toLowerCase()))
     }
+
+    console.log(search)
 
     return (
         <div>
@@ -96,7 +98,7 @@ export default function App() {
                 </div>
                 <Form>
                     <Form.Group className="mb-3" controlId="formSearch">
-                        <Form.Control type="text" onChange={handleSearchChange} placeholder="Search" />
+                        <Form.Control type="text" onChange={(e) => setSearch(e.target.value)} placeholder="Search" />
                     </Form.Group>
                 </Form>
             </Container>
