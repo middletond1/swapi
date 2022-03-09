@@ -4,20 +4,6 @@ import Spinner from "react-bootstrap/Spinner"
 
 export default function CharacterTable(props) {
 
-    const tableElements = props.displayPage && props.displayPage.map((item, i) => {
-        return (
-            <tr key={i}>
-                <td>{item.name}</td>
-                <td>{item.birth_year}</td>
-                <td>{item.height}</td>
-                <td>{item.mass}</td>
-                <td>{item.homeworld}</td>
-                <td>{item.species}</td>
-            </tr>
-            )
-        } 
-    )
-
     return (
         <div className='container'>
             {props.starWarsData === null ?
@@ -39,7 +25,19 @@ export default function CharacterTable(props) {
                         </tr>
                     </thead>
                     <tbody>
-                        {tableElements}
+                        {props.displayPage && props.displayPage.map((item, i) => {
+                            return (
+                                <tr key={i}>
+                                    <td>{item.name}</td>
+                                    <td>{item.birth_year}</td>
+                                    <td>{item.height}</td>
+                                    <td>{item.mass}</td>
+                                    <td>{item.homeworld}</td>
+                                    <td>{item.species}</td>
+                                </tr>
+                                )
+                            } 
+                        )}
                     </tbody>
                 </Table>
             }       
