@@ -79,10 +79,6 @@ export default function App() {
         setDisplayPage(findCharacter)
     }, [search])
 
-    // function handleSearchChange(event) {
-    //     setSearch(event.target.value)
-    // }
-
     function findCharacter() {
         const flattenedData = starWarsData.flat();
         return flattenedData.filter(character => character.name.toLowerCase().includes(search.toLowerCase()))
@@ -126,3 +122,5 @@ export default function App() {
         </div>
     )
 }
+
+// Refactor data to flatten initially. Use bootstrap pagination to help.
