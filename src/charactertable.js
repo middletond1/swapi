@@ -32,7 +32,7 @@ export default function CharacterTable({displayPage}) {
                         } 
                     )}
                 </tbody>
-            </Table>     
+            </Table>
         </div>
     )
 }
