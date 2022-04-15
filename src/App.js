@@ -111,10 +111,10 @@ export default function App() {
             </Container>
             <Container>
                 <Row className="justify-content-md-center">
-                    <Col xs lg="2">
+                    <Col>
                         <Button onClick={() => setCurrentPage(currentPage === 0 ? 0 : currentPage - 1)}>Prev Page</Button>
                     </Col>
-                    <Col xs lg="2">
+                    <Col className="text-end">
                         <Button onClick={() => setCurrentPage(currentPage === 8 ? 8 : currentPage + 1)}>Next Page</Button>
                     </Col>
                 </Row>
